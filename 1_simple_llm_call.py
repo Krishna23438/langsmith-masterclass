@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-
+ 
 load_dotenv()
 
 # Simple one-line prompt
@@ -13,6 +13,7 @@ model = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0
 )
+
 parser = StrOutputParser()
 
 # Chain: prompt → model → parser
