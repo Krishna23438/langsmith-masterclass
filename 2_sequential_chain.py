@@ -29,9 +29,10 @@ parser = StrOutputParser()
 chain = prompt1 | model | parser | prompt2 | model | parser
 
 config = {
-  
+  'tags':['llm app','report generation','summarization'],
+  'metadata':{'model1':'openai/gpt-oss-120b','model2_temp':0.7,'parser':'stroutputparser'}
 }
 
-result = chain.invoke({'topic': 'Unemployment in India'})
+result = chain.invoke({'topic': 'Unemployment in India'},config=config)
 
 print(result)
