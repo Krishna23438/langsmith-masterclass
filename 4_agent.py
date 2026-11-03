@@ -1,4 +1,4 @@
-
+import os
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool
 import requests
@@ -9,7 +9,7 @@ from langchain import hub
 from dotenv import load_dotenv
 
 load_dotenv()
-
+os.environ['LANGSMITH_PROJECT'] = 'AI-Agent'
 search_tool = DuckDuckGoSearchRun()
 
 @tool
@@ -45,6 +45,7 @@ IMPORTANT:
 - Never use Answer: or **Answer:** as the final response label.
 - Do not produce text outside the required ReAct format.
 """
+
 prompt.template += """
 
 IMPORTANT:
