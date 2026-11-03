@@ -8,6 +8,7 @@ from langsmith import traceable  # <-- key import
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
@@ -56,7 +57,10 @@ def setup_pipeline(pdf_path: str):
     return vs
 
 # ---------- pipeline ----------
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    temperature=0.7
+)
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Answer ONLY from the provided context. If not found, say you don't know."),
