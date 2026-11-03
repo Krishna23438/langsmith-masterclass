@@ -20,7 +20,10 @@ from langchain_core.output_parsers import StrOutputParser
 # LANGCHAIN_API_KEY=...
 # LANGCHAIN_PROJECT=pdf_rag_demo
 
+
 load_dotenv()
+
+os.environ['LANGSMITH_PROJECT'] = 'RAG Chatbot_V2'
 
 PDF_PATH = "islr.pdf"  # change to your file
 
@@ -43,7 +46,7 @@ def build_vectorstore(splits):
     model_name="sentence-transformers/all-MiniLM-L6-v2",
     model_kwargs={"device": "cpu"},
     encode_kwargs={"normalize_embeddings": True}
-)
+   )
     # FAISS.from_documents internally calls the embedding model:
     vs = FAISS.from_documents(splits, emb)
     return vs
