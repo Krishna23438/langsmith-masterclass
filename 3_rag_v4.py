@@ -108,7 +108,10 @@ def load_or_build_index(
         return build_index_run(pdf_path, index_dir, chunk_size, chunk_overlap, embed_model_name)
 
 # ----------------- model, prompt, and pipeline -----------------
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    temperature=0.7
+)
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Answer ONLY from the provided context. If not found, say you don't know."),
