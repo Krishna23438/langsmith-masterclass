@@ -17,6 +17,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
 
+os.environ['LANGSMITH_PROJECT'] = 'RAG Tracing-v3'
 PDF_PATH = "islr.pdf"  # <- change to your file
 
 # ----------------- helpers (not traced individually) -----------------
@@ -51,7 +52,10 @@ def setup_pipeline(pdf_path: str, chunk_size=1000, chunk_overlap=150):
     return vs
 
 # ----------------- model, prompt, and run -----------------
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    temperature=0.7
+)
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Answer ONLY from the provided context. If not found, say you don't know."),
