@@ -20,7 +20,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
 
-os.environ['LANGSMITH_PROJECT'] = 'RAG Tracing-v3'
+os.environ['LANGSMITH_PROJECT'] = 'RAG Tracing-v4'
 
 PDF_PATH = "islr.pdf"  # change to your file
 INDEX_ROOT = Path(".indices")
@@ -40,7 +40,11 @@ def split_documents(docs, chunk_size=1000, chunk_overlap=150):
 
 @traceable(name="build_vectorstore")
 def build_vectorstore(splits, embed_model_name: str):
-    emb = HuggingFaceEmbeddings(model=embed_model_name)
+    emb = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        model_kwargs={"device": "cpu"},
+        encode_kwargs={"normalize_embeddings": True}
+       )
     return FAISS.from_documents(splits, emb)
 
 # ----------------- cache key / fingerprint -----------------
@@ -65,7 +69,11 @@ def _index_key(pdf_path: str, chunk_size: int, chunk_overlap: int, embed_model_n
 # ----------------- explicitly traced load/build runs -----------------
 @traceable(name="load_index", tags=["index"])
 def load_index_run(index_dir: Path, embed_model_name: str):
-    emb = HuggingFaceEmbeddings(model=embed_model_name)
+    emb = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        model_kwargs={"device": "cpu"},
+        encode_kwargs={"normalize_embeddings": True}
+       )
     return FAISS.load_local(
         str(index_dir),
         emb,
