@@ -29,6 +29,7 @@ parser = StrOutputParser()
 chain = prompt1 | model | parser | prompt2 | model | parser
 
 config = {
+  'run_name':'sequential_chain',
   'tags':['llm app','report generation','summarization'],
   'metadata':{'model1':'openai/gpt-oss-120b','model2_temp':0.7,'parser':'stroutputparser'}
 }
