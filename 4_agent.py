@@ -1,7 +1,8 @@
-from langchain_openai import ChatOpenAI
+
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool
 import requests
+from langsmith import Client
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain import hub
@@ -28,7 +29,12 @@ llm = ChatGroq(
 )
 
 # Step 2: Pull the ReAct prompt from LangChain Hub
-prompt = hub.pull("hwchase17/react")  # pulls the standard ReAct agent prompt
+client = Client()
+
+prompt = client.pull_prompt(
+    "hwchase17/react",
+    dangerously_pull_public_prompt=True
+)# pulls the standard ReAct agent prompt
 
 # Step 3: Create the ReAct agent manually with the pulled prompt
 agent = create_react_agent(
@@ -42,7 +48,8 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=[search_tool, get_weather_data],
     verbose=True,
-    max_iterations=5
+    max_iterations=5,
+    handle_parsing_errors=True
 )
 
 # What is the release date of Dhadak 2?
