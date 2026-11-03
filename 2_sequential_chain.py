@@ -21,12 +21,16 @@ prompt2 = PromptTemplate(
 
 model = ChatGroq(
     model="openai/gpt-oss-120b",
-    temperature=0
+    temperature=0.7
 )
 
 parser = StrOutputParser()
 
 chain = prompt1 | model | parser | prompt2 | model | parser
+
+config = {
+  
+}
 
 result = chain.invoke({'topic': 'Unemployment in India'})
 
