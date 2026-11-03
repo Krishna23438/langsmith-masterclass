@@ -44,7 +44,8 @@ IMPORTANT:
 - After receiving the tool observation, provide the final response using Final Answer:.
 - Never use Answer: or **Answer:** as the final response label.
 - Do not produce text outside the required ReAct format.
-"""prompt.template += """
+"""
+prompt.template += """
 
 IMPORTANT:
 - Strictly follow the ReAct format.
