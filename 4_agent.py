@@ -36,6 +36,24 @@ prompt = client.pull_prompt(
     dangerously_pull_public_prompt=True
 )# pulls the standard ReAct agent prompt
 
+prompt.template += """
+
+IMPORTANT:
+- Strictly follow the ReAct format.
+- When using a tool, use Thought, Action, and Action Input.
+- After receiving the tool observation, provide the final response using Final Answer:.
+- Never use Answer: or **Answer:** as the final response label.
+- Do not produce text outside the required ReAct format.
+"""prompt.template += """
+
+IMPORTANT:
+- Strictly follow the ReAct format.
+- When using a tool, use Thought, Action, and Action Input.
+- After receiving the tool observation, provide the final response using Final Answer:.
+- Never use Answer: or **Answer:** as the final response label.
+- Do not produce text outside the required ReAct format.
+"""
+
 # Step 3: Create the ReAct agent manually with the pulled prompt
 agent = create_react_agent(
     llm=llm,
@@ -51,6 +69,8 @@ agent_executor = AgentExecutor(
     max_iterations=5,
     handle_parsing_errors=True
 )
+
+
 
 # What is the release date of Dhadak 2?
 # What is the current temp of gurgaon
