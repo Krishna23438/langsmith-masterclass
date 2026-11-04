@@ -74,7 +74,6 @@ agent_executor = AgentExecutor(
 )
 
 
-
 # What is the release date of Dhadak 2?
 # What is the current temp of gurgaon
 # Identify the birthplace city of Kalpana Chawla (search) and give its current temperature.
