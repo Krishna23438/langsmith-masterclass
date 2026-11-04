@@ -2,7 +2,7 @@
 
 import operator
 from typing import TypedDict, Annotated, List
-
+import os
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
@@ -10,6 +10,8 @@ from langsmith import traceable
 from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
 from langgraph.graph import StateGraph, START, END
+
+os.environ["LANGSMITH_PROJECT"] = 'LangGraph Essay Checker'
 
 # ---------- Setup ----------
 load_dotenv()
